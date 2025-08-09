@@ -1,0 +1,14 @@
+{
+    "name": "sample_data",
+    "password": "securepassword123",
+    "workout":{
+        "Chest":{"incline":["Dumbell Press","Barbell Press","Dumbell Flyes"],"decline":["Dumbell Press","Barbell Press","Dumbell Flyes"]},
+        
+        "Back":{"Rows":["Dumbell Rows","Chest Supported Rows","Barbell Rows","Cable Rows","Machine Rows"],
+        "Pull":["Wide Grip Pull down","Close Grip Reverse Pull down","Mag Grip Pull down","Single arm Pull down","Straight Arm Pull Over"]},
+        "Legs":{"Squats":["Hack Squats","Barbell Squats","Goblet Squats","Stepper Squats","Steppr-Hack Squats"],"others":["Walking Lunges","Lunges","Leg Press","Leg Extensions","Leg Curls"]},
+        "Biceps":["curls","hammer curls","concentration curls","preacher curls"],
+        "Triceps":["push downs","overhead extensions","dips","skull crushers"],
+        "Shoulders":["Military Press","Arnold Press","Lateral Raises","Front Raises","Rear Delt Flyes"]
+    }
+}
