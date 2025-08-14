@@ -1,14 +1,12 @@
 {
     "Chest": {
-        "incline": [
-            "Dumbell Press",
-            "Barbell Press",
-            "Dumbell Flyes"
+        "Incline": [
+            "Dumbbell Press",
+            "Barbell press"
         ],
-        "decline": [
-            "Dumbell Press",
-            "Barbell Press",
-            "Dumbell Flyes"
+        "Decline": [
+            "Flys",
+            "Dumbbell Press"
         ]
     },
     "Back": {
@@ -49,12 +47,17 @@
         "concentration curls",
         "preacher curls"
     ],
-    "Triceps": [
-        "push downs",
-        "overhead extensions",
-        "dips",
-        "skull crushers"
-    ],
+    "Triceps": {
+        "Pushdowns": [
+            "Pushdowns",
+            "Reverse Pushdowns"
+        ],
+        "Extensions": [
+            "Overhead Extensions",
+            "Skull Crushers",
+            "Dumbell Extensions"
+        ]
+    },
     "Shoulders": [
         "Military Press",
         "Arnold Press",
@@ -62,7 +65,7 @@
         "Front Raises",
         "Rear Delt Flyes"
     ],
-    "string": [
-        "string"
+    "Abdominals": [
+        "Leg Raises"
     ]
 }
