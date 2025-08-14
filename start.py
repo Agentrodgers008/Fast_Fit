@@ -8,6 +8,12 @@ class Workout(BaseModel):
     name: str
     exercises: Union[list[str],dict[str, list[str]]]
 
+
+
+class UpdateWorkout(BaseModel):
+    name: str
+    exercises: Union[list[str],dict[str, list[str]]]
+
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
@@ -34,7 +40,7 @@ def create_workout(workout: Workout):
     return {"message": "Workout created successfully", "workout": workout}
 
 @app.put("/update/{workoutname}")
-def update_wkts(workoutname: str, workout: Workout):
+def update_wkts(workoutname: str, workout: UpdateWorkout):
     with open("data.json","r") as file:
         data=json.load(file)
         if workoutname in data:
