@@ -1,12 +1,12 @@
 from fastapi import FastAPI,Path,Query
-from typing import Optional
+from typing import Optional,Union
 from pydantic import BaseModel
 import json
 app = FastAPI()
 
 class Workout(BaseModel):
     name: str
-    exercises: list[str]
+    exercises: Union[list[str],dict[str, list[str]]]
 
 @app.get("/")
 def read_root():
@@ -23,6 +23,7 @@ def show_wkts(workoutname: Optional[str] = None):
             else:
                 return {"Error": "Workout not Found"}
         return show
+
 @app.post("/workouts")
 def create_workout(workout: Workout):
     with open("data.json", "r") as file:
@@ -31,3 +32,15 @@ def create_workout(workout: Workout):
     with open("data.json", "w") as file:
         json.dump(data, file, indent=4)
     return {"message": "Workout created successfully", "workout": workout}
+
+@app.put("/update/{workoutname}")
+def update_wkts(workoutname: str, workout: Workout):
+    with open("data.json","r") as file:
+        data=json.load(file)
+        if workoutname in data:
+            if data[workoutname] != None:
+                data[workoutname] = workout.exercises
+                with open("data.json", "w") as file:
+                    json.dump(data, file, indent=4)
+                
+                return {"message": "Workout updated successfully", "workout": workout}
