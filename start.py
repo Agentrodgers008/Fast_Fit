@@ -1,12 +1,30 @@
-from fastapi import FastAPI,Path,Query
+from fastapi import FastAPI,Request
 from typing import Optional,Union
-from pydantic import BaseModel
+from pydantic import EmailStr
+from sqlmodel import SQLModel
 import json
+from pymysql import connect
+import dotenv
+import os
+import datetime
+load_dotenv()
+conn=connect(
+    host=os.getenv("host"),
+    user=os.getenv("user"),
+    password=os.getenv("password"),
+    database=os.getenv("database")
+    )
+
 app = FastAPI()
 
 class Workout(BaseModel):
     name: str
     exercises: Union[list[str],dict[str, list[str]]]
+
+
+class User(BaseModel):
+    mail: str
+    passord: Union[str,int]
 
 
 
