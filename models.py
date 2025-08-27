@@ -1,10 +1,24 @@
 from sqlmodel import Column, Integer, String, BOOLEAN, SQLModel,Field
-from sqlalchemy import Column
+import pymysql as pym
+from typing import Optional,Union
+from pydantic import EmailStr
+from datetime import date
+
+#class Workout(SQLModel,table =True):
+    
+
 
 class User(SQLModel,table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    name: str
+    email: EmailStr = Field(sa_column=Column("email", String, unique=True, index=True))
+    password: str = Field(sa_column=Column(String, nullable=False))
     
-    mail: str = Field(sa_column=Column(String, unique=True, index=True))
-    password: str = Field(sa_column=Column(String(100)), min_length=8, description="Password must be at least 8 characters long")
 
-class Workout(SQLModel,table=True):
-    Set_number: int = Field(sa_column=Column(Integer, primary_key=True, autoincrement=True))
+
+class UpdateWorkout(SQLModel):
+    name: str
+    exercise= Field(String)
+    exercise_date: date=Field(String)
+    sets: int=Field(Integer)
+    reps: int=Field(Integer)
