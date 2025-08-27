@@ -4,33 +4,14 @@ from pydantic import EmailStr
 from sqlmodel import SQLModel
 import json
 from pymysql import connect
-import dotenv
+from dotenv import load_dotenv
 import os
 import datetime
 load_dotenv()
-conn=connect(
-    host=os.getenv("host"),
-    user=os.getenv("user"),
-    password=os.getenv("password"),
-    database=os.getenv("database")
-    )
 
 app = FastAPI()
 
-class Workout(SQLModel):
-    name: str
-    exercises: Union[list[str],dict[str, list[str]]]
 
-
-class User(SQLModel):
-    mail: str
-    passord: Union[str,int]
-
-
-
-class UpdateWorkout(SQLModel):
-    name: str
-    exercises: Union[list[str],dict[str, list[str]]]
 
 @app.get("/")
 def read_root():
@@ -49,7 +30,7 @@ def show_wkts(workoutname: Optional[str] = None):
         return show
 
 @app.post("/workouts")
-def create_workout(workout: Workout):
+def create_workout():
     with open("data.json", "r") as file:
         data = json.load(file)
     data[workout.name] = workout.exercises
@@ -58,7 +39,7 @@ def create_workout(workout: Workout):
     return {"message": "Workout created successfully", "workout": workout}
 
 @app.put("/update/{workoutname}")
-def update_wkts(workoutname: str, workout: UpdateWorkout):
+def update_wkts():
     with open("data.json","r") as file:
         data=json.load(file)
         if workoutname in data:
