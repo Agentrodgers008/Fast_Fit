@@ -17,18 +17,18 @@ conn=connect(
 
 app = FastAPI()
 
-class Workout(BaseModel):
+class Workout(SQLModel):
     name: str
     exercises: Union[list[str],dict[str, list[str]]]
 
 
-class User(BaseModel):
+class User(SQLModel):
     mail: str
     passord: Union[str,int]
 
 
 
-class UpdateWorkout(BaseModel):
+class UpdateWorkout(SQLModel):
     name: str
     exercises: Union[list[str],dict[str, list[str]]]
 
