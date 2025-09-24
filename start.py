@@ -1,14 +1,14 @@
 from fastapi import FastAPI,Request
 from typing import Optional,Union
 from pydantic import EmailStr
-from sqlmodel import SQLModel
+from sqlmodel import select,Session
 import json
-from pymysql import connect
 from dotenv import load_dotenv
 import os
 import datetime
+from models import UpdateWorkout
+from database import engine
 load_dotenv()
-
 app = FastAPI()
 
 
@@ -20,14 +20,14 @@ def read_root():
 
 @app.get("/workouts")
 def show_wkts(workoutname: Optional[str] = None):
-    with open("data.json", "r") as data_show:
-        show = json.load(data_show)
-        if workoutname:
-            if workoutname in show:
-                return show[workoutname]
-            else:
-                return {"Error": "Workout not Found"}
-        return show
+    try:
+        with Session(engine) as session:
+            statement = select(UpdateWorkout).where(UpdateWorkout.exercise == workoutname)
+            result_res = session.exec(statement).all()
+        
+
+
+            
 
 @app.post("/workouts")
 def create_workout():
