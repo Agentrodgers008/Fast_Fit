@@ -19,24 +19,18 @@ def read_root():
 
 
 @app.get("/workouts")
-def show_wkts(workoutname: Optional[str] = None):
+def show_wkts():
     try:
         with Session(engine) as session:
-            statement = select(UpdateWorkout).where(UpdateWorkout.exercise == workoutname)
+            statement = select(UpdateWorkout)
             result_res = session.exec(statement).all()
             return result_res
     except Exception as e:
         return {"error": str(e)}
         
-
-
-            
-
 @app.post("/post_workouts")
 def create_workout(workout: UpdateWorkout):
     try:
-
-
         with Session(engine) as session:
             workout=UpdateWorkout(exercise=workout.exercise, sets=workout.sets)
             session.add(workout)
