@@ -24,28 +24,24 @@ def show_wkts(workoutname: Optional[str] = None):
         with Session(engine) as session:
             statement = select(UpdateWorkout).where(UpdateWorkout.exercise == workoutname)
             result_res = session.exec(statement).all()
+            return result_res
+    except Exception as e:
+        return {"error": str(e)}
         
 
 
             
 
-@app.post("/workouts")
-def create_workout():
-    with open("data.json", "r") as file:
-        data = json.load(file)
-    data[workout.name] = workout.exercises
-    with open("data.json", "w") as file:
-        json.dump(data, file, indent=4)
-    return {"message": "Workout created successfully", "workout": workout}
+@app.post("/post_workouts")
+def create_workout(workout: UpdateWorkout):
+    try:
 
-@app.put("/update/{workoutname}")
-def update_wkts():
-    with open("data.json","r") as file:
-        data=json.load(file)
-        if workoutname in data:
-            if data[workoutname] != None:
-                data[workoutname] = workout.exercises
-                with open("data.json", "w") as file:
-                    json.dump(data, file, indent=4)
-                
-                return {"message": "Workout updated successfully", "workout": workout}
+
+        with Session(engine) as session:
+            workout=UpdateWorkout(exercise=workout.exercise, sets=workout.sets)
+            session.add(workout)
+            session.commit()
+            return {"message": "Workout added successfully"}
+    except Exception as e:
+        return {"error": str(e)}
+            
