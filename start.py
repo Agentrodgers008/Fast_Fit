@@ -1,13 +1,12 @@
 from fastapi import FastAPI,Request,HTTPException, status, Depends
 from pydantic import EmailStr
 from sqlmodel import select,Session
-from datetime import timedelta
+from datetime import timedelta,datetime,timezone
 from jose import JWTError, jwt
 from models import UpdateWorkout, User
 from passlib.context import CryptContext
 from database import engine
 import bcrypt
-from datetime import datetime,timezone
 from typing import Optional
 from config import sec_key, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
 
